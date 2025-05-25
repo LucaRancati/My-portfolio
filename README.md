@@ -1,6 +1,5 @@
 # Luca Rancati - Data Analyst Portfolio
 
-##About
 Hello! I am Luca and this is my portfolio of projects to showcase my skills in data analysis. I am currently a Consultant working in the field of competition economics, but my goal is to transition fully to a data analyst role.
 I am already used to process and analyse data of client and to produce visualizations. I also implement econometric analysis. However, for my job, I mostly use Stata. For this reason, I started training online to widen my skillset.
 

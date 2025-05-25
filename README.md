@@ -9,7 +9,8 @@ I did my first courses on dataquest, getting certifications in Tableau, Python, 
 Below, I will put the links to some of the projects I have been working on. The page is work in progress.
 
 - **TABLEAU PUBLIC** [Link](https://public.tableau.com/app/profile/luca.rancati/vizzes)
-- **Python** []
+- **Python**
+- Analysis of Employees Exit Surveys [Link](./Employees Exit Surveyes_LR.ipynb)
 
 
 

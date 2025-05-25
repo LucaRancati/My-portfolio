@@ -1,3 +1,19 @@
+# Luca Rancati - Data Analyst Portfolio
+
+##About
+Hello! I am Luca and this is my portfolio of projects to showcase my skills in data analysis. I am currently a Consultant working in the field of competition economics, but my goal is to transition fully to a data analyst role.
+I am already used to process and analyse data of client and to produce visualizations. I also implement econometric analysis. However, for my job, I mostly use Stata. For this reason, I started training online to widen my skillset.
+
+I did my first courses on dataquest, getting certifications in Tableau, Python, SQL and PowerBi.
+
+Below, I will put the links to some of the projects I have been working on. The page is work in progress.
+
+- **TABLEAU PUBLIC** [Link](https://public.tableau.com/app/profile/luca.rancati/vizzes)
+- **Python** []
+
+
+
+
 # Dataquest-project: Insights on Signups and Subscribers
 
 In the context of my Dataquest training, I built my very first Tableau dashboard. [Link](https://public.tableau.com/views/InsightsonDataquestSignups/SignupsInsights?:language=it-IT&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)

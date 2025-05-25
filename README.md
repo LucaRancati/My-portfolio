@@ -11,7 +11,7 @@ Below, I will put the links to some of the projects I have been working on. The 
 - **TABLEAU PUBLIC** [Link](https://public.tableau.com/app/profile/luca.rancati/vizzes)
   
 - **Python**
-    - Analysis of Employees Exit Surveys [Link](notebooks/Employees Exit Surveyes_LR.ipynb)
+    - Analysis of Employees Exit Surveys [Link](https://github.com/LucaRancati/My-portfolio/blob/main/notebooks/Employees Exit Surveyes_LR.ipynb)
 
 - **SQL** [yet to come]
   

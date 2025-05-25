@@ -19,7 +19,7 @@ Below, I will put the links to some of the projects I have been working on. The 
 
 # You want to know more about me?
 - LinkedIn Profile [Link](https://www.linkedin.com/in/luca-rancati-9a3508154/)
-- CV [click here to download](https://github.com/LucaRancati/My-portfolio/blob/main/notebooks/CV_Luca_Rancati.pdf)
+- CV [click here to download](https://github.com/LucaRancati/My-portfolio/blob/main/notebooks/CV_Rancati_Luca.pdf)
 
 Please feel free to contact me by email (rancatiluca1@gmail.com)
 

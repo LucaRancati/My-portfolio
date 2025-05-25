@@ -21,7 +21,7 @@ This portfolio is a work in progress, but it already includes selected projects 
 📌 Stay tuned — more projects are coming soon!
   
 
-# You want to know more about me? 
+## You want to know more about me? 
 Feel free to connect or reach out!
 - [LinkedIn Profile](https://www.linkedin.com/in/luca-rancati-9a3508154/)
 - [CV](https://github.com/LucaRancati/My-portfolio/blob/main/notebooks/CV_Rancati_Luca.pdf)

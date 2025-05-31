@@ -89,6 +89,20 @@ SELECT 'Offices' AS table_name,
         ) AS number_of_attributes,
         COUNT(*) AS number_of_rows 
         FROM offices;
+
+| Table         | Columns | Rows |
+|---------------|---------|------|
+| Customers     | 13      | 122  |
+| Products      | 9       | 110  |
+| ProductLines  | 4       | 7    |
+| Orders        | 7       | 326  |
+| OrderDetails  | 5       | 2996 |
+| Payments      | 4       | 273  |
+| Employees     | 8       | 23   |
+| Offices       | 9       | 7    |
+
+
+
 /*
 Question 1: Which Products Should We Order More of or Less of?
 This question refers to inventory reports, including low stock(i.e. product in demand) and product performance. This will optimize the supply and the user experience by preventing the best-selling products from going out-of-stock.
@@ -124,6 +138,21 @@ SELECT s.productName, s.productLine, s.restock
   FROM low_stock AS s
   WHERE s.productCode IN (SELECT productCode
                             FROM product_perf);
+
+
+| Product Code | Product Name               | Product Line   | Quantity In Stock |
+|--------------|----------------------------|----------------|-------------------|
+| S24_2000     | 1960 BSA Gold Star DBD34   | Motorcycles    | 7034.0            |
+| S12_1099     | 1968 Ford Mustang          | Classic Cars   | 1551.0            |
+| S32_4289     | 1928 Ford Phaeton Deluxe   | Vintage Cars   | 775.0             |
+| S32_1374     | 1997 BMW F650 ST           | Motorcycles    | 592.0             |
+| S72_3212     | Pont Yacht                 | Ships          | 254.0             |
+| S18_2248     | 1911 Ford Town Car         | Vintage Cars   | 195.0             |
+| S18_2795     | 1928 Mercedes-Benz SSK     | Vintage Cars   | 192.0             |
+| S700_3167    | F/A 18 Hornet 1/72         | Planes         | 191.0             |
+| S50_4713     | 2002 Yamaha YZR M1         | Motorcycles    | 175.0             |
+| S700_1938    | The Mayflower              | Ships          | 143.0             |
+
 
 /*
 Question 2: How Should We Match Marketing and Communication Strategies to Customer Behavior?
@@ -176,6 +205,14 @@ SELECT c.contactLastName, c.contactFirstName, c.city, c.country, cp.profit
     ON c.customerNumber = cp.customerNumber
  ORDER BY cp.profit DESC
  LIMIT 5;
+
+| Last Name | First Name | City        | Country   | Sales       |
+|-----------|------------|-------------|-----------|-------------|
+| Freyre    | Diego      | Madrid      | Spain     | 326519.66   |
+| Nelson    | Susan      | San Rafael  | USA       | 236769.39   |
+| Young     | Jeff       | NYC         | USA       | 72370.09    |
+| Ferguson  | Peter      | Melbourne   | Australia | 70311.07    |
+| Labrune   | Janine     | Nantes      | France    | 60875.30    |
  
  -- Find 5 least-engaged customers
  WITH  
@@ -195,6 +232,14 @@ SELECT c.contactLastName, c.contactFirstName, c.city, c.country, cp.profit
     ON c.customerNumber = cp.customerNumber
  ORDER BY cp.profit 
  LIMIT 5;
+
+| Last Name | First Name | City       | Country | Sales     |
+|-----------|------------|------------|---------|-----------|
+| Young     | Mary       | Glendale   | USA     | 2610.87   |
+| Taylor    | Leslie     | Brickhaven | USA     | 6586.02   |
+| Ricotti   | Franco     | Milan      | Italy   | 9532.93   |
+| Schmitt   | Carine     | Nantes     | France  | 10063.80  |
+| Smith     | Thomas     | London     | UK      | 10868.04  |
 
 /*
 Question 3: How Much Can We Spend on Acquiring New Customers?
@@ -218,6 +263,7 @@ SELECT o.customerNumber, ROUND(SUM(quantityOrdered * (priceEach - buyPrice)),2) 
 SELECT ROUND(AVG(profit),2) AS avg_customer_profit
   FROM customer_profit;
 
+-- average customer profit is:  39039.59
 
 /*
 This project analyzes product performance and customer profitability using SQL. 

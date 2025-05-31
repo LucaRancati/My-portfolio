@@ -1,0 +1,234 @@
+/*The goal of this project is to analyze data from a sales records database for scale model cars and extract information for decision-making.
+
+Good analysis starts with questions. Below are the questions we want to answer for this project. On the next screen, we'll learn about the database and the tools to manipulate it.
+
+Question 1: Which products should we order more of or less of?
+Question 2: How should we tailor marketing and communication strategies to customer behaviors?
+Question 3: How much can we spend on acquiring new customers?
+*/
+
+
+/*
+First, we'll explore the database.
+Database contains eight tables:
+Customers: customer data
+Employees: all employee information
+Offices: sales office information
+Orders: customers' sales orders
+OrderDetails: sales order line for each sales order
+Payments: customers' payment records
+Products: a list of scale model cars
+ProductLines: a list of product line categories
+
+Write a query to display the following table:
+
+- Select each table name as a string.
+- Select the number of attributes as an integer (count the number of attributes per table).
+- Select the number of rows using the COUNT(*) function.
+Use the compound-operator UNION ALL to bind these rows together.
+*/
+SELECT 'Customers' AS table_name,
+       (SELECT COUNT(*)
+          FROM pragma_table_info('customers')
+        ) AS number_of_attributes,
+        COUNT(*) AS number_of_rows 
+        FROM customers
+UNION ALL 
+
+SELECT 'Products' AS table_name,
+       (SELECT COUNT(*)
+          FROM pragma_table_info('products')
+        ) AS number_of_attributes,
+        COUNT(*) AS number_of_rows 
+        FROM Products     
+UNION ALL 
+
+SELECT 'ProductLines' AS table_name,
+       (SELECT COUNT(*)
+          FROM pragma_table_info('productlines')
+        ) AS number_of_attributes,
+        COUNT(*) AS number_of_rows 
+        FROM productlines
+UNION ALL 
+
+SELECT 'Orders' AS table_name,
+       (SELECT COUNT(*)
+          FROM pragma_table_info('orders')
+        ) AS number_of_attributes,
+        COUNT(*) AS number_of_rows 
+        FROM orders
+UNION ALL 
+
+SELECT 'OrderDetails' AS table_name,
+       (SELECT COUNT(*)
+          FROM pragma_table_info('orderdetails')
+        ) AS number_of_attributes,
+        COUNT(*) AS number_of_rows 
+        FROM orderdetails
+UNION ALL 
+
+SELECT 'Payments' AS table_name,
+       (SELECT COUNT(*)
+          FROM pragma_table_info('payments')
+        ) AS number_of_attributes,
+        COUNT(*) AS number_of_rows 
+        FROM payments
+UNION ALL
+
+SELECT 'Employees' AS table_name,
+       (SELECT COUNT(*)
+          FROM pragma_table_info('employees')
+        ) AS number_of_attributes,
+        COUNT(*) AS number_of_rows 
+        FROM employees       
+UNION ALL 
+
+SELECT 'Offices' AS table_name,
+       (SELECT COUNT(*)
+          FROM pragma_table_info('offices')
+        ) AS number_of_attributes,
+        COUNT(*) AS number_of_rows 
+        FROM offices;
+/*
+Question 1: Which Products Should We Order More of or Less of?
+This question refers to inventory reports, including low stock(i.e. product in demand) and product performance. This will optimize the supply and the user experience by preventing the best-selling products from going out-of-stock.
+The low stock represents the quantity of the sum of each product ordered divided by the quantity of product in stock. We can consider the ten highest rates. These will be the top ten products that are almost out-of-stock or completely out-of-stock.
+The product performance represents the sum of sales per product.
+Priority products for restocking are those with high product performance that are on the brink of being out of stock.
+*/
+-- 1 identify low stock
+WITH 
+low_stock AS (
+SELECT p.productCode, p.productName, p.productLine,
+       (SELECT ROUND(SUM(o.quantityOrdered)/p.quantityinStock,2) 
+          FROM orderdetails AS o
+         WHERE o.productCode=p.productCode) AS restock
+  FROM products AS p
+ GROUP BY productCode
+ ORDER BY restock 
+ -- LIMIT 10
+),
+
+-- 2 Calculate top 10 sales product performances 
+product_perf AS (
+SELECT productCode, 
+       SUM(priceEach*quantityOrdered) AS product_performance
+  FROM orderdetails
+ GROUP BY productCode
+ ORDER BY product_performance DESC
+ LIMIT 10
+)
+
+-- 3 Select products with high perfotmance and low stock
+SELECT s.productName, s.productLine, s.restock
+  FROM low_stock AS s
+  WHERE s.productCode IN (SELECT productCode
+                            FROM product_perf);
+
+/*
+Question 2: How Should We Match Marketing and Communication Strategies to Customer Behavior?
+
+How should we match marketing and communication strategies to customer behaviors? This involves categorizing customers: finding the VIP customers and those who are less engaged.
+
+  - VIP customers bring in the most profit for the store.
+  
+  - Less-engaged customers bring in less profit.
+
+For example, we could organize some events to drive loyalty for the VIPs and launch a campaign for the less engaged.
+For this purpose, let's compute how much profit each customer generates.
+*/
+
+/*
+Write a query to join the products, orders, and orderdetails tables to have customers and products information in the same place.
+Select customerNumber.
+Compute, for each customer, the profit, which is the sum of quantityOrdered multiplied by priceEach minus buyPrice: SUM(quantityOrdered * (priceEach - buyPrice))
+*/
+
+SELECT o.customerNumber,ROUND(SUM(od.quantityOrdered * (od.priceEach - p.buyPrice)),2)AS PROFIT
+FROM orders o,orderdetails od,products p
+WHERE o.orderNumber=od.orderNumber
+AND   od.productCode=p.productCode
+GROUP BY o.customerNumber
+ORDER BY o.customerNumber ;
+
+/*
+Using the profit per customer from the previous query, finding VIP customers is straightforward.
+1. Write a query to find the top five VIP customers.
+  - Use the query from the previous screen as a CTE.
+  - Select the following columns: contactLastName, contactFirstName, city, and country from the customers table and the profit from the CTE.
+2. Similar to the previous query, write a query to find the top five least-engaged customers.
+*/
+-- Find top 5 VIP customers
+WITH  
+customer_profit AS( 
+SELECT o.customerNumber, ROUND(SUM(quantityOrdered * (priceEach - buyPrice)),2) AS profit
+  FROM products p
+  JOIN orderdetails od
+    ON p.productCode = od.productCode
+  JOIN orders o
+    ON o.orderNumber = od.orderNumber
+ GROUP BY o.customerNumber
+)
+
+SELECT c.contactLastName, c.contactFirstName, c.city, c.country, cp.profit 
+  FROM customers AS c
+  JOIN customer_profit AS cp
+    ON c.customerNumber = cp.customerNumber
+ ORDER BY cp.profit DESC
+ LIMIT 5;
+ 
+ -- Find 5 least-engaged customers
+ WITH  
+customer_profit AS( 
+SELECT o.customerNumber, ROUND(SUM(quantityOrdered * (priceEach - buyPrice)),2) AS profit
+  FROM products p
+  JOIN orderdetails od
+    ON p.productCode = od.productCode
+  JOIN orders o
+    ON o.orderNumber = od.orderNumber
+ GROUP BY o.customerNumber
+)
+
+SELECT c.contactLastName, c.contactFirstName, c.city, c.country, cp.profit 
+  FROM customers AS c
+  JOIN customer_profit AS cp
+    ON c.customerNumber = cp.customerNumber
+ ORDER BY cp.profit 
+ LIMIT 5;
+
+/*
+Question 3: How Much Can We Spend on Acquiring New Customers?
+To determine how much money we can spend acquiring new customers, we can compute the Customer Lifetime Value (LTV), which represents the average amount of money a customer generates. 
+We can then determine how much we can spend on marketing.
+
+Write a query to compute the average of customer profits using the CTE from the previous query.
+*/
+-- Find average profit per customer
+WITH  
+customer_profit AS( 
+SELECT o.customerNumber, ROUND(SUM(quantityOrdered * (priceEach - buyPrice)),2) AS profit
+  FROM products p
+  JOIN orderdetails od
+    ON p.productCode = od.productCode
+  JOIN orders o
+    ON o.orderNumber = od.orderNumber
+ GROUP BY o.customerNumber
+)
+
+SELECT ROUND(AVG(profit),2) AS avg_customer_profit
+  FROM customer_profit;
+
+
+/*
+This project analyzes product performance and customer profitability using SQL. 
+It explores inventory optimization by identifying top low-stock, high-performing products and segments customers by profit contribution. 
+Using Common Table Expressions (CTEs), it calculates Customer Lifetime Value (LTV) to inform marketing and acquisition strategies. Key insights include:
+
+- Prioritizing products for restocking
+
+- Identifying VIP and low-engagement customers
+
+- Calculating average customer profit to estimate acquisition budgets
+
+- Ideal for businesses seeking data-driven strategies to boost revenue and retention.*/
+  

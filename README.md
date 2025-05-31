@@ -14,11 +14,11 @@ This portfolio is a work in progress, but it already includes selected projects 
   
 - **Python**
     - Analysis of Employees Exit Surveys [Link](https://github.com/LucaRancati/My-portfolio/blob/main/notebooks/Employees_Exit_Surveys_LR.ipynb)
-    - ...
 
-- **SQL** 
+- **SQL**
+    - Customers and Products Analysis Using SQL [Link](https://github.com/LucaRancati/My-portfolio/blob/main/notebooks/Dataquest_SQL_exercise_Consumer_and_Product_Analysis)
 
-📌 Stay tuned — more projects are coming soon!
+📌 Stay tuned — more projects are coming!
   
 
 ## You want to know more about me? 

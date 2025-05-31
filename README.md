@@ -17,9 +17,16 @@ This portfolio is a work in progress, but it already includes selected projects 
 
 - **SQL**
     - Customers and Products Analysis Using SQL [Link](https://github.com/LucaRancati/My-portfolio/blob/main/notebooks/Dataquest_SQL_exercise_Consumer_and_Product_Analysis)
-
+ 
 📌 Stay tuned — more projects are coming!
+
   
+## Additional Public Projects from My Role at E.CA Economics
+These two studies were commissioned by DG COMP (Directorate-General for Competition) of the European Commission. In both projects, I applied not only my economic expertise but also analytical skills to work with both public and confidential datasets. My responsibilities included data preparation, statistical analysis, and creating visualizations, primarily using STATA and Excel.
+While the tools were different from those typically used in Data Analytics, I include these projects to show my ability to apply rigorous analytical thinking, manage real-world data, and deliver insights—skills that are highly transferable to Data Analyst roles.
+
+- Impact assessment: Community guidelines on support study for the review of the State aid for railway undertakings [Link](https://competition-policy.ec.europa.eu/document/download/36a36ea6-3143-4fe8-8ead-c4e7fc424fc2_en?filename=KD0423349enn_railway_guidelines_final_report.pdf)
+-  Exploring Aspects of the State of Competition in the EU [link](https://competition-policy.ec.europa.eu/system/files/2024-06/KD0224126enn_exploring_aspects_of_the_state_of_competition_in_the_EU.pdf)
 
 ## You want to know more about me? 
 Feel free to connect or reach out!

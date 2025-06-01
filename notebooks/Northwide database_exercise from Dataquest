@@ -1,0 +1,81 @@
+/*
+This project focuses on the rich Northwind database, which provides a real-world-like platform for exploring and analyzing sales data.
+
+You are a Data Analyst at Northwind Traders, an international gourmet food distributor. Management is looking to you for insights to make strategic decisions in several aspects of the business. The projects focus on:
+
+- Evaluating employee performance to boost productivity,
+- Understanding product sales and category performance to optimize inventory and marketing strategies,
+- Analyzing sales growth to identify trends, monitor company progress, and make more accurate forecasts,
+- And evaluating customer purchase behavior to target high-value customers with promotional incentives.
+- Using the PostgreSQL window functions on the Northwind database, you will provide these essential insights to management, contributing significantly to the company's strategic decisions.
+
+Here there is the schema of the database: https://github.com/pthom/northwind_psql/blob/master/ER.png
+*/
+--Familiarize yourself with the Northwind company by writing the following queries. Consider saving them as views to help with the rest of the project.
+
+--Combine orders and customers tables to get more detailed information about each order.
+--Combine order_details, products, and orders tables to get detailed order information, including the product name and quantity.
+--Combine employees and orders tables to see who is responsible for each order.
+
+SELECT * 
+  FROM "Order details" AS od
+  JOIN Products AS pd
+    ON od.ProductId=pd.ProductId
+  JOIN Orders AS o
+    ON od.OrderId = o.OrderId
+  JOIN Employees AS e
+    ON o.EmployeeId=e.EmployeeId;
+
+/*
+As the lead Data Analyst at Northwind Traders, you've been tasked with comprehensively reviewing the company's sales performance from an employee perspective. The objective is twofold:
+
+- First, the management team wants to recognize and reward top-performing employees, fostering a culture of excellence within the organization.
+- Second, they want to identify employees who might be struggling so that they can offer the necessary training or resources to help them improve.
+
+The management team is keen on encouraging healthy competition and rewarding stellar performers. They've asked you to rank employees based on their total sales amount.
+*/
+
+	
+-- Generate total sales by Employee
+WITH data_b AS (
+SELECT e.FirstName, e.LastName, e.EmployeeId, 
+       SUM(od.Quantity*od.UnitPrice)- SUM(Discount) AS total_sales
+  FROM "Order Details" AS od
+  JOIN Products AS pd
+    ON od.ProductId=pd.ProductId
+  JOIN Orders AS o
+    ON od.OrderId = o.OrderId
+  JOIN Employees AS e
+    ON o.EmployeeId=e.EmployeeId
+ GROUP BY e.EmployeeId
+    
+)
+-- Rank employees by total sales 
+SELECT EmployeeId, 
+        FirstName || ' ' || LastName AS "Employee", 
+        total_sales AS "Total Sales",
+       RANK() OVER(ORDER BY total_sales DESC) AS "Sales Rank"
+  FROM data_b;
+
+/*
+Having completed the employee performance ranking, management is now keen on gaining a more macro-level perspective, specifically around the company's overall sales performance over time.
+Calculate a running total of sales by month
+*/
+// STOPPED HERE. TO BE CONTINUED >> adapt the tables and variables names
+  -- Running total of sales by month
+  WITH monthly_sales AS (
+SELECT DATE_TRUNC('month',o.OrderDate)::DATE AS month,
+       SUM(Quantity*UnitPrice)-SUM(Discount) AS monthly_sales
+  FROM orders AS o
+  JOIN order_details AS od
+    ON od.order_id = o.order_id
+ GROUP BY DATE_TRUNC('month',o.order_date)
+)
+
+SELECT month AS "Month", 
+       monthly_sales AS "Monthly Sales",
+       SUM(monthly_sales) OVER(ORDER BY month) AS "Running Total"
+  FROM monthly_sales
+ ORDER BY month;
+  
+

@@ -40,7 +40,6 @@ While the tools were different from those typically used in Data Analytics, thes
 ## You want to know more about me? 
 Feel free to connect or reach out!
 - [LinkedIn Profile](https://www.linkedin.com/in/luca-rancati-9a3508154/)
-- [CV](https://github.com/LucaRancati/My-portfolio/blob/main/notebooks/CV_Rancati_Luca.pdf)
 - Email me at: rancatiluca1@gmail.com
 
 

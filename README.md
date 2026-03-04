@@ -7,6 +7,7 @@ To prepare for a Data Analyst role, I've completed structured courses on Dataque
 - SQL for querying and managing databases
 - Tableau and Power BI for data visualization and dashboards
 
+
 ## Personal projects to prepare for a Data Analyst role
 This portfolio is a work in progress, but it already includes selected projects that demonstrate my skills with real datasets.
 
@@ -24,9 +25,11 @@ This portfolio is a work in progress, but it already includes selected projects 
  
 📌 Stay tuned — more projects are coming!
 
-## Additional Public Projects from My Role at E.CA Economics
 
-These studies were commissioned by **DG COMP (Directorate-General for Competition)** of the European Commission. I contributed by:
+## Additional Public Projects from My Role at E.CA Economics
+Most of my work relies on confidential data provided by clients. For this reason, I am not able to share the visualisations or quantitative results produced in these projects. However, I occasionally work for public institutions that publish the results of these studies.
+
+The following studies were commissioned by DG COMP (Directorate-General for Competition) of the European Commission. My contributions included:
 - Preparing and cleaning both public and confidential datasets
 - Conducting statistical analyses using STATA and Excel
 - Creating charts and tables for policy reports
